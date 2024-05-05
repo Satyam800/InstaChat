@@ -30,7 +30,7 @@ const User = () => {
     formdata.append('url',urlref.current.value)
     formdata.append("bio",bioRef.current.value)
     formdata.append("dp",dp)
-
+    
     dispatch(profile(formdata))
   }
   
