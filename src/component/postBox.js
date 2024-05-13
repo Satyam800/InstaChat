@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { PostCard } from "../slice/postSlice";
 import { toast } from "react-toastify";
 import { tweetPost } from "../slice/postSlice";
+import { postBox } from "../slice/postSlice";
 const PostBox = () => {
   const [cancelBox, setcancelBox] = useState("");
   const [selectedFile, setSelectedFile] = useState([]);
@@ -13,6 +14,7 @@ const PostBox = () => {
   const textRef = useRef();
   const CancelPostBox = () => {
     dispatch(PostCard(false));
+    dispatch(postBox(false))
   };
   useEffect(() => {}, [])
 
@@ -36,6 +38,8 @@ const PostBox = () => {
       toast("Invalid Post")
       return
     }
+    dispatch(postBox(false))
+
     console.log(JSON.parse(localStorage.getItem("id")), "text");
     const formdata = new FormData();
     formdata.append("text", textRef.current.value);
@@ -48,7 +52,7 @@ const PostBox = () => {
   };
 
   return (
-    <div className="h-full w-full bg-black opacity-50 z-20   ">
+    <div className="h-full w-full bg-black opacity-40 z-100  ">
       <div
         className="flex flex-col absolute top-[20%] left-[23%] sm:left-[31%] h-auto h-min-[40%]  sm:w-[40%] w-[70%] bg-zinc-200 opacity-100"
         ref={postBoxRef}
@@ -58,7 +62,7 @@ const PostBox = () => {
           className="absolute left-[95%] cursor-pointer"
           onClick={CancelPostBox}
         />
-        <div className="m-3"> Create a Post</div>
+        <div className="m-3 z-100"> Create a Post</div>
         <textarea
           className="ml-9 h-[30%] w-[70%] rounded-lg p-4 focus:outline-none  shadow-md"
           placeholder="write a something"

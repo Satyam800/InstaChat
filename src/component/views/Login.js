@@ -71,11 +71,11 @@ const Login = () => {
   const handleLogin = () => {
     const isvalidEmail=Validate(emailRef.current?.value)
     console.log(isvalidEmail,"isbavliewmai");
-    if(isvalidEmail==false|| !userNameRef?.current?.value) toast("Invalid email or name")
-    if (isvalidEmail==false|| !userNameRef?.current?.value) return
+    
      
     if (isSignUp) {
-     
+      if(isvalidEmail==false|| !userNameRef?.current?.value) toast("Invalid email or name")
+        if (isvalidEmail==false|| !userNameRef?.current?.value) return
       dispatch(
         postUser({
           email: emailRef.current?.value,

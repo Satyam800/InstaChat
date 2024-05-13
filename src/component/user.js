@@ -1,11 +1,13 @@
 import React, { useEffect, useState,useRef } from "react";
 import { FaCircleUser } from "react-icons/fa6";
 import { FcSwitchCamera } from "react-icons/fc";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { RxCross1 } from "react-icons/rx";
-import { profile } from "../slice/postSlice";
+import { profile,profileFetch } from "../slice/postSlice";
 const User = () => {
   const userName = JSON.parse(localStorage.getItem("id"))?.name
+  const user = JSON.parse(localStorage.getItem("id"))?._id
+
   const [isEdit,setisEdit]=useState(false)
   const [dp,setdp]=useState("")
   const fnameRef=useRef()
@@ -13,6 +15,7 @@ const User = () => {
   const urlref=useRef()
   const bioRef=useRef()
   const dispatch=useDispatch()
+  const editProfile=useSelector(store=>store.post.profiles)
   const handleDP = (e) => {
     console.log(e.target.files[0]);
     setdp(e.target.files[0])
@@ -21,6 +24,15 @@ const User = () => {
     localStorage.removeItem("id")
     localStorage.removeItem("token")
   }
+  useEffect(()=>{
+console.log(editProfile,"edit");
+  },[editProfile])
+
+  useEffect(()=>{
+    dispatch(profileFetch({
+      user:user
+    }))
+  },[])
 
   const handleSave=()=>{
     setisEdit(false)
@@ -29,8 +41,8 @@ const User = () => {
     formdata.append('lname',lnameRef.current.value)
     formdata.append('url',urlref.current.value)
     formdata.append("bio",bioRef.current.value)
-    formdata.append("dp",dp)
-    
+    formdata.append('user',user)
+    formdata.append("image",dp)
     dispatch(profile(formdata))
   }
   
@@ -72,8 +84,8 @@ const User = () => {
        </div>:
       <div>
  <div className=" sm:ml-[25%] ml-3     sm:w-[40%] w-[80%] sm:h-[40%] h-[45%] bg-white shadow-sm rounded-md sm:p-5 p-1">
-     <div className=" flex h-32 w-32 bg-pink-300 rounded-full cursor-pointer">
-        <FaCircleUser size={120} className="absolute m-1" />
+     <div className={` flex h-32 w-32 ${editProfile?"bg-white":"bg-pink-300"} rounded-full cursor-pointer`}>
+      { editProfile?<img src={editProfile?.image?.[0]} className="relative m-1 h-[90%] w-[90%] rounded-full border-dotted border-2 border-indigo-600"/>: <FaCircleUser size={120} className="absolute m-1" />}
       </div >
       <div className="flex w-[50%] justify-between py-5 text-red-300">
       <div>posts</div>
@@ -81,11 +93,10 @@ const User = () => {
       <div>following</div>
       </div>
      <div className="py-2 m-1">
-     <div className="text-xl font-serif">{userName}</div>
-      <div>Done</div>
-      <div>Done</div>
-      <div>Done</div>
-      <div>Done</div>
+    {editProfile?null: <div className="text-xl font-serif">{userName}</div>}
+      <div className="text-xl font-serif">{`${editProfile?.fname} ${editProfile?.lname}`}</div>
+      <div>{editProfile?.bio}</div>
+      <a>{editProfile?.url}</a>
      </div>
       
      <div className="  w-[50%] pl-[17%] h-6 bg-slate-200 rounded-md shadow-lg cursor-pointer" onClick={()=>setisEdit(true)}>Edit profile</div>
