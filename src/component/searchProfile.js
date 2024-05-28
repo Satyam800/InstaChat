@@ -15,6 +15,9 @@ dispatch(userSearchProfile({
 }))
 },[])
 
+useEffect(()=>{
+
+},[editProfile])
   return (
     <div>
       <Header/>

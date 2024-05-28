@@ -21,7 +21,7 @@ setImgLen(imgLen-1)
     <div>
       <div className=" z-0">
         <img src={image?.[imgLen]} className="w-full -z-10" />
-        {image.length > 1 ? (
+        {image?.length > 1 ? (
           <div className="  flex justify-between opacity-40 z-0 ">
             <FaArrowAltCircleLeft className="bg-pink-600 rounded-full" size={32} onClick={handleLeft} />
             <FaArrowAltCircleRight className="bg-pink-600 rounded-full" size={32} onClick={handleRight} />

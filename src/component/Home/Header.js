@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {name,email,token} from "../../utils/constant"
+import {name,email} from "../../utils/constant"
 import { useDispatch, useSelector } from 'react-redux';
 import { IoIosLogOut } from "react-icons/io";
 import { GoSignIn } from "react-icons/go";
@@ -11,6 +11,7 @@ import { FaCircleUser } from "react-icons/fa6";
 import Search from '../search';
 import { IoSearchOutline } from "react-icons/io5";
 import { RxCross1 } from "react-icons/rx";
+import { userSearchProfile } from '../../slice/postSlice';
 
 import PostBox from '../postBox';
 const Header = () => {
@@ -18,7 +19,7 @@ const Header = () => {
   const [logout,SetLogout]=useState(false)
   const [isPostPopUp,setisPopUp]=useState(false)
   const editProfile=useSelector(store=>store.post.profiles)
-
+  const token=localStorage.getItem("token")
   const dispatch=useDispatch()
   const isBox=useSelector(store=>store.post.postBox)
 const handleClick=()=>{
@@ -42,6 +43,10 @@ useEffect(()=>{
    
 },[isBox])
 
+useEffect(()=>{
+
+},[logout,token])
+
 const [suggs,setSuggs]=useState(false)
 const [isSearch,setisSearch]=useState(false)
  const users=useSelector(store=>store.post.searchProfile)
@@ -55,8 +60,11 @@ dispatch(userSearch({
 console.log(users,"userSeracxh")
     },[users])
 
-    const handleUser=(user)=>{
-      console.log(user,"user")
+    const handleUser=(i)=>{
+      console.log(i.user,"userinnnng")
+      dispatch(userSearchProfile({
+        user:i.user
+      }))
     }
 
   return (
@@ -103,9 +111,9 @@ className='z-100 ml-[20%] mt-1 px-6 py-2 bg-white border shadow-sm border-slate-
     <FaCirclePlus size={42} className='bg-red-500 rounded-full' onClick={handlePostBox}/>
       <Link to='/user'>{editProfile? <img src={editProfile?.image[0]}  className='h-12 w-12 rounded-full  border-dotted border-2 border-indigo-600'/>:<FaCircleUser size={38} className=' '/>}</Link>
      
-   {token?<div className='flex cursor-pointer' onClick={handleClick}>
+   {token&&logout?<div className='flex cursor-pointer' onClick={handleClick}>
     <IoIosLogOut size={22} className=' m-1'/>
-    <div className=' h-[9%]  '>Logout</div>
+   <div className=' h-[9%]  '>Logout</div>
    </div>:<div className='flex cursor-pointer' >
    <GoSignIn className=' m-3'/>
    <Link to="/login"> <div className=' h-[9%] m-2   text-lg '>Signin</div></Link>
