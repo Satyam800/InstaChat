@@ -51,6 +51,7 @@ const Login = () => {
 
  
   useEffect(() => {
+    Setloader(false)
     console.log(signInMessage,"loafder");
     if (signInMessage?.success == true) {
       //  dispatch(insert("succesfully login"+" "+signInMessage?.data?.user?.name))

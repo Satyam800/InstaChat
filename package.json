@@ -25,6 +25,7 @@
     "react-shimmer-effects": "^1.0.3",
     "react-slick": "^0.30.2",
     "react-spinners": "^0.13.8",
+    "react-svg": "^16.1.34",
     "react-toastify": "^10.0.5",
     "slick-carousel": "^1.8.1",
     "spinners-react": "^1.0.7",

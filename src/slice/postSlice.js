@@ -40,10 +40,10 @@ export const userSearchProfile = createAsyncThunk(
   "userSearchProfile",
   async (data) => {
     const res = await axios.post(
-      "http://localhost:3500/api/v1/userSearch",
+      "http://localhost:3500/api/v1/profilefetch",
       data
     );
-    console.log(res, "resfetch");
+    console.log(res, "resfetch mmmm mmmm mmmm");
     return res?.data?.data;
   }
 );
@@ -68,6 +68,16 @@ export const postComment = createAsyncThunk("comment", async (data) => {
   );
   console.log(res, "coommfetch");
   return res?.data
+})
+
+export const postBookmark = createAsyncThunk("bookmark", async (data) => {
+  console.log(data);
+  const res = await axios.post(
+    "http://localhost:3500/api/v1/bookmark",
+    data
+  );
+  console.log(res, "coommfetch");
+  return res?.data?.data
 });
 
 export const AllComment = createAsyncThunk("comments", async (data) => {
@@ -80,6 +90,69 @@ export const AllComment = createAsyncThunk("comments", async (data) => {
   return res?.data
 });
 
+export const following=createAsyncThunk("follwoing",async(data)=>{
+  const res = await axios.post(
+    "http://localhost:3500/api/v1/following",
+    data
+  );
+  console.log(res, "opopopop");
+  return res?.data?.data
+})
+
+export const follow=createAsyncThunk("follow",async(data)=>{
+  const res = await axios.post(
+    "http://localhost:3500/api/v1/follow",
+    data
+  );
+  console.log(res, "ioioii");
+  return res?.data?.data
+})
+
+export const followingProfile=createAsyncThunk("followingProfile",async(data)=>{
+  const res = await axios.post(
+    "http://localhost:3500/api/v1/followingProfile",
+    data
+  );
+  console.log(res, "ioioii");
+  return res?.data?.data
+})
+
+export const followingFeed=createAsyncThunk("feed",async(data)=>{
+  const res = await axios.post(
+    "http://localhost:3500/api/v1/followingFeed",
+    data
+  );
+  console.log(res, "ioioii");
+  return res?.data?.data
+})
+
+export const mostLiked=createAsyncThunk("mostLiked",async(data)=>{
+  const res = await axios.post(
+    "http://localhost:3500/api/v1/mostLiked",
+    data
+  );
+  console.log(res, "ioioii");
+  return res?.data
+})
+
+export const hastagTweet=createAsyncThunk('hastag',async(data)=>{
+  console.log(data,"hashtag");
+  const res = await axios.post(
+    "http://localhost:3500/api/v1/hashtag",
+    data
+  );
+  console.log(res, "hashtag");
+  return res?.data?.list
+})
+export const hastagResult=createAsyncThunk('hastagResult',async(data)=>{
+  console.log(data,"hashtag");
+  const res = await axios.post(
+    "http://localhost:3500/api/v1/hashtagResult",
+    data
+  );
+  console.log(res, "hashtag");
+  return res?.data?.list
+})
 const postSlice = createSlice({
   name: "post",
   initialState: {
@@ -92,23 +165,30 @@ const postSlice = createSlice({
     like: [],
     isComment: false,
     Comment: [],
+    bookmark:[],
+    followings:[],
+    followingProfiles:[],
+    followingFeed:[],
+    mostLike:[],
+    hastagSugg:[],
+    hashtagResults:[]
   },
   reducers: {
     PostCard: (state, action) => {
-      state.postBox = action.payload;
+      state.postBox = action.payload
     },
     postBox: (state, action) => {
-      state.box = action.payload;
+      state.box = action.payload
     },
     isComments: (state, action) => {
-      state.isComment = action.payload;
+      state.isComment = action.payload
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(tweetPost.fulfilled, (state, action) => {
         console.log(action.payload, "bb");
-        state.create = action.payload.reverse();
+        state.create = action?.payload
       })
       .addCase(profile.fulfilled, (state, action) => {
         console.log(action.payload, "profile");
@@ -123,7 +203,8 @@ const postSlice = createSlice({
         state.searchProfile = action.payload;
       })
       .addCase(userSearchProfile.fulfilled, (state, action) => {
-        state.specificProfile = action.payload[0];
+        console.log(action.payload,"hhkvhjvgjjvjccccccccccccccccccccccccccc");
+        state.specificProfile = action.payload;
       })
       .addCase(fetchTweet.fulfilled, (state, action) => {
         console.log(action.payload, "dscscsc");
@@ -141,8 +222,29 @@ const postSlice = createSlice({
         console.log(action.payload, "commnc");
         state.Comment=action.payload;
       }).addCase(AllComment.fulfilled, (state, action) => {
-        console.log(action.payload, "commnc");
+        console.log(action.payload, "commncAlll");
         state.Comment=action.payload;
+      }).addCase(postBookmark.fulfilled, (state, action) => {
+        console.log(action.payload, "bookmark");
+        state.bookmark=action.payload;
+      }).addCase(following.fulfilled,(state,action)=>{
+        console.log("followind",action.payload)
+        state.followings=action.payload
+      }).addCase(followingProfile.fulfilled,(state,action)=>{
+        console.log("followindgg",action.payload)
+        state.followingProfiles=action.payload
+      }).addCase(followingFeed.fulfilled,(state,action)=>{
+        console.log("followingfed",action.payload)
+        state.create=action.payload
+      }).addCase(mostLiked.fulfilled,(state,action)=>{
+        console.log("followingfedgccgnccncnngcncg",action.payload)
+        state.create=action.payload?.data
+      }).addCase(hastagTweet.fulfilled,(state,action)=>{
+        console.log("followingfedgccgnccncnngcncg",action.payload)
+        state.hastagSugg=action.payload
+      }).addCase(hastagResult.fulfilled,(state,action)=>{
+        console.log("f",action.payload)
+        state.create=action.payload
       })
   },
 });
