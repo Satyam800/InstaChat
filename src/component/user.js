@@ -1,36 +1,36 @@
-import React, { useEffect, useState, useRef } from "react";
-import { FaCircleUser } from "react-icons/fa6";
-import { FcSwitchCamera } from "react-icons/fc";
-import { useDispatch, useSelector } from "react-redux";
-import { RxCross1 } from "react-icons/rx";
-import { profile, profileFetch } from "../slice/postSlice";
-import { MdOutlineGridOn } from "react-icons/md";
-import { CiBookmarkCheck } from "react-icons/ci";
-import { fetchTweet, postBookmark } from "../slice/postSlice";
-import TweetCard from "./tweetCard";
+import React, { useEffect, useState, useRef } from "react"
+import { FaCircleUser } from "react-icons/fa6"
+import { FcSwitchCamera } from "react-icons/fc"
+import { useDispatch, useSelector } from "react-redux"
+import { RxCross1 } from "react-icons/rx"
+import { profile, profileFetch } from "../slice/postSlice"
+import { MdOutlineGridOn } from "react-icons/md"
+import { CiBookmarkCheck } from "react-icons/ci"
+import { fetchTweet, postBookmark } from "../slice/postSlice"
+import TweetCard from "./tweetCard"
 const User = () => {
-  const userName = JSON.parse(localStorage.getItem("id"))?.name;
-  const user = JSON.parse(localStorage.getItem("id"))?._id;
-  const [selected, setSelected] = useState(true);
-  const [isEdit, setisEdit] = useState(false);
-  const [dp, setdp] = useState("");
-  const fnameRef = useRef();
-  const lnameRef = useRef();
-  const urlref = useRef();
-  const bioRef = useRef();
-  const dispatch = useDispatch();
-  const editProfile = useSelector((store) => store.post.profiles);
+  const userName = JSON.parse(localStorage.getItem("id"))?.name
+  const user = JSON.parse(localStorage.getItem("id"))?._id
+  const [selected, setSelected] = useState(true)
+  const [isEdit, setisEdit] = useState(false)
+  const [dp, setdp] = useState("")
+  const fnameRef = useRef()
+  const lnameRef = useRef()
+  const urlref = useRef()
+  const bioRef = useRef()
+  const dispatch = useDispatch()
+  const editProfile = useSelector((store) => store.post.profiles)
   const handleDP = (e) => {
-    console.log(e.target.files[0]);
-    setdp(e.target.files[0]);
+    console.log(e.target.files[0])
+    setdp(e.target.files[0])
   };
   const handleLogout = () => {
-    localStorage.removeItem("id");
-    localStorage.removeItem("token");
+    localStorage.removeItem("id")
+    localStorage.removeItem("token")
   };
   useEffect(() => {
-    console.log(editProfile, "edit");
-  }, [editProfile]);
+    console.log(editProfile, "edit")
+  }, [editProfile])
 
   useEffect(() => {
     dispatch(
@@ -45,23 +45,23 @@ const User = () => {
     );
   }, []);
 
-  const tweet = useSelector((store) => store.post.create);
-  const bookmark = useSelector((store) => store.post.bookmark);
+  const tweet = useSelector((store) => store.post.create)
+  const bookmark = useSelector((store) => store.post.bookmark)
 
   useEffect(() => {
-    console.log(tweet, "tweet");
-  }, [bookmark, tweet]);
+    console.log(tweet, "tweet")
+  }, [bookmark, tweet])
 
   const handleSave = () => {
     setisEdit(false);
     const formdata = new FormData();
-    formdata.append("fname", fnameRef.current.value);
-    formdata.append("lname", lnameRef.current.value);
-    formdata.append("url", urlref.current.value);
-    formdata.append("bio", bioRef.current.value);
-    formdata.append("user", user);
-    formdata.append("image", dp);
-    dispatch(profile(formdata));
+    formdata.append("fname", fnameRef.current.value)
+    formdata.append("lname", lnameRef.current.value)
+    formdata.append("url", urlref.current.value)
+    formdata.append("bio", bioRef.current.value)
+    formdata.append("user", user)
+    formdata.append("image", dp)
+    dispatch(profile(formdata))
   };
 
   const handleMyBookmark = () => {
@@ -74,13 +74,13 @@ const User = () => {
   };
 
   const handleMyPost = () => {
-    setSelected(true);
+    setSelected(true)
     dispatch(
       fetchTweet({
         user: user,
       })
-    );
-  };
+    )
+  }
 
   return (
     <div>
@@ -95,9 +95,12 @@ const User = () => {
 
             <div className="absolute top-[20%] left-[30%] flex flex-col h-[70%] w-[30%] justify-evenly gap-y-5">
               <div className="flex">
-                <label className=" h-32 w-32 bg-pink-300 rounded-full cursor-pointer">
+                <label className=" h-32 w-32  rounded-full cursor-pointer">
                   <input type="file" className="hidden" onChange={handleDP} />
-                  <FaCircleUser size={120} className="absolute m-1" />
+                  {dp?<img     
+                  className="h-32 w-32 rounded-full"          
+                  src={URL.createObjectURL(dp)}
+                  />:<FaCircleUser size={120} className="absolute m-1" />}
                   <FcSwitchCamera
                     size={32}
                     className="absolute top-[25%] sm:left-[17%] left-[30%]"
