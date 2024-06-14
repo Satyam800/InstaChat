@@ -15,7 +15,7 @@ export const postUser=createAsyncThunk('SignUp',async(data)=>{
 })
 export const SignInUser=createAsyncThunk("SignIn",async(data)=>{
   try {
-    console.log("hgfd");
+    console.log(data,"hgfd");
      const response=await axios.post(URL+'/login',data)
      console.log(response,"knb")
      return response.data

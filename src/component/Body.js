@@ -54,8 +54,7 @@ const [followId,setFollowId]=useState('')
     if(feed==1){
       dispatch(fetchTweet(
         { user:user,
-         setoff:setoff
-         
+         setoff:setoff         
         }
        ))
     }
@@ -66,7 +65,6 @@ const [followId,setFollowId]=useState('')
       }))
     }
     if(feed==3){
-
       dispatch(followingFeed({
         user:user
       }))
@@ -78,8 +76,10 @@ const [followId,setFollowId]=useState('')
   },[isBox])
 
   useEffect(()=>{
-  },[postTweet,editProfile,followingProf,tagSugg])
+  },[editProfile,followingProf,tagSugg])
+useEffect(()=>{
 
+},[postTweet])
 
 useEffect(()=>{
 setIsfollowClicked(false)
@@ -137,10 +137,27 @@ useEffect(()=>{
    }
   }
   const remove=document.addEventListener('click',handleRemove)
-  
-
 },[])
 
+const [isLoading,setisLoading]=useState(false)
+const onScroll = () => {
+  
+  console.log("onscrollBar")
+  if (window.innerHeight+document.documentElement.scrollTop+2>=document.documentElement.scrollHeight){
+    console.log("setoff")
+    setSetoff(setoff+10)
+  }
+  dispatch(fetchTweet(
+    { user:user,
+     setoff:setoff
+    }
+   ))
+
+}
+useEffect(() => {
+  window.addEventListener('scroll',onScroll)
+  return () => window.removeEventListener('scroll', onScroll)
+}, [])
   return (
     <div className='relative grid grid-cols-4 h-screen gap-4 sm:bg-white bg-black   '>
   {isBox?<div className='z-100 absolute h-screen w-screen'><PostBox/></div>:null}
@@ -158,7 +175,7 @@ useEffect(()=>{
     <div className='flex   w-[95%]  py-2'>
     {followingProf?
       followingProf.map((i)=>{
-        return <div className='w-12 h-12 ml-5 mr-5 flex-shrink-0 rounded-full outline-cyan-400  cursor-pointer outline-dotted border-red-400'>
+        return <div className='w-12 h-12 ml-5 mr-5 flex-shrink-0 rounded-full outline-cyan-400  outline-dotted border-red-400'>
         <img src={i.image[0]} className='w-12 h-12 rounded-full '/>
         </div>
       }):null
@@ -208,8 +225,8 @@ useEffect(()=>{
    postTweet?.map((i)=>{
 
      return <div>
-       {feed==1||feed==3?<TweetCard data={i} profile={editProfile} key={i._id}/>:
-       <TweetCard data={i.postId} profile={editProfile} key={i._id} time={i.createdAt}/>
+       {feed==1||feed==3?<TweetCard data={i} profile={editProfile} key={i._id} feed={feed}/>:
+       <TweetCard data={i.postId} profile={editProfile} key={i._id} time={i.createdAt} feed={feed}/>
        }
      </div>
        
@@ -219,14 +236,13 @@ useEffect(()=>{
     </div>
     <div className='sm:block hidden overflow-y-scroll  bg-slate-100 '>
      <div className=''>
-     <div className='m-4 flex '>
+     <div className='m-4 flex'>
      {editProfile?<img src={editProfile.image[0]} className='w-10 h-10 rounded-full flex-shrink-0  font-semibold'/>
      :<FaCircleUser size={32}/>}
   <div className='flex flex-col ml-3' >
   {users?.name}
   <span className='text-slate-300 text-xs'>{users?.email}</span>
   </div>
-
   <span className='text-red-300 text-xl ml-[20%]'>You</span>
      </div>
      <hr/>
@@ -234,19 +250,22 @@ useEffect(()=>{
      <div className='flex flex-col'>
       {
        followings?.map((i,j)=>{
-          return <div className=' w-[70%] flex tex-xl py-3'>
+          return <div className='w-[70%] flex tex-xl py-3'>
             <img src={i?.image?.[0]} className='h-9 w-9 rounded-full ml-2'/>
          <span className='ml-4'> {`${i?.fname}  ${i?.lname}`}</span>
         {isfollowclicked&&followId==i?.user?._id?
         <SpinnerCircular size={30} color="white" speed={70}/>
-        : <button onClick={()=>handlefollow(i?.user?._id,j)} className='w-12 absolute bg-black text-white p-1 text-xs h-6 rounded-lg ml-[17%]'>Follow</button>}
+        : <button onClick={()=>handlefollow(i?.user?._id,j)} className='w-12 relative bg-black text-white p-1 text-xs h-6 rounded-lg ml-[17%]'>Follow</button>}
           </div>
         })
       }
      </div>
      </div>
     </div>
-   
+   {
+    <SpinnerCircular size={30} color="white" speed={70} />
+
+   }
     </div>
   )
 }

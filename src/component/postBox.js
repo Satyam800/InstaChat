@@ -52,9 +52,9 @@ const PostBox = () => {
   };
 
   return (
-    <div className="h-full w-full bg-black opacity-40 z-100 overflow-y-scroll no-scrollbar ">
+    <div className="h-full w-full bg-black opacity-40 z-100 overflow-y-scroll  no-scrollbar ">
       <div
-        className="flex flex-col absolute top-[20%] left-[23%] sm:left-[31%] h-auto h-min-[40%]  sm:w-[40%] w-[70%] bg-zinc-200 opacity-100"
+        className="flex flex-col absolute top-[20%] left-[23%] sm:left-[31%]  h-[60%]  sm:w-[40%] w-[70%] bg-zinc-200 opacity-100 overflow-y-scroll"
         ref={postBoxRef}
       >
         <RxCrossCircled
@@ -70,7 +70,7 @@ const PostBox = () => {
         />
 
         {selectedFile && (
-          <div className="flex flex-col gap-2 p-4 w-[70%] h-[70%] sm:ml-[10%] ml-[16%] rounded-lg">
+          <div className="flex flex-col gap-2 p-4 w-[70%] h-[70%] sm:ml-[10%] ml-[16%] rounded-lg overflow-y-scroll overflow-x-hidden">
             {selectedFile.map((file, index) => {
               return (
                 <div className="bg-red-100">

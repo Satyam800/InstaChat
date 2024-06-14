@@ -21,7 +21,7 @@ import { AllComment } from "../slice/postSlice";
 import { FaCircleUser } from "react-icons/fa6";
 import { ReactSVG } from "react-svg";
 import { postBookmark } from "../slice/postSlice";
-const TweetCard = ({ data, profile, time }) => {
+const TweetCard = ({ data, profile, time,feed }) => {
   const postTweet = useSelector((store) => store.post.create);
   const editProfile = useSelector((store) => store.post.profiles);
   const user = JSON.parse(localStorage.getItem("id"))?._id;
@@ -43,7 +43,8 @@ const TweetCard = ({ data, profile, time }) => {
       postBookmark({
         user: user,
       })
-    );
+    )
+    console.log(editProfile,"editProfile");
   }, []);
   useEffect(() => {}, [postTweet]);
 
@@ -72,18 +73,18 @@ const TweetCard = ({ data, profile, time }) => {
       "https://twitterapplication.s3.ap-south-1.amazonaws.com/Animation+-+1715602841040.gif"
     );
     setLike(false);
-  };
+  }
 
   const likedPost = useSelector((store) => store.post.like);
   useEffect(() => {
-    console.log(likedPost, "alphabet");
+    console.log(likedPost,feed,"alphabet")
     likedPost.map((i) => {
       if (data?._id == i.postId) {
         setGif("");
         setLike(true);
       }
     });
-  }, [likedPost]);
+  }, [likedPost])
   const isCommenting = useSelector((store) => store.post.isComment);
   useEffect(() => {}, [isCommenting]);
 
@@ -120,7 +121,8 @@ const TweetCard = ({ data, profile, time }) => {
     if (isbookmark == true) {
       setisbookmark(false);
     }
-  };
+  }
+  useEffect(()=>{},[feed])
   const bookmark = useSelector((store) => store.post.bookmark);
   const [isbookmark, setisbookmark] = useState(false);
   useEffect(() => {
@@ -135,10 +137,15 @@ const TweetCard = ({ data, profile, time }) => {
     <div className="z-10 h-auto w-[70%]  shadow-md rounded-md justify-evenly mb-4 mt-4 sm:ml-[7%] ml-[12%] border-1 bg-gradient-to-l from-teal-200 to-yellow-100 ">
       <div className="flex justify-start ">
         <div className="flex m-2">
-          <img
+         {feed==1?
+         <img
+         src={editProfile?.image?.[0]}
+         className="h-8 w-8 mr-4 rounded-full"
+       />
+         : <img
             src={data?.profile?.image?.[0]}
-            className="h-8 w-8 mr-4  rounded-full"
-          />
+            className="h-8 w-8 mr-4 rounded-full"
+          />}
           <div className="text-black">{profile?.fname}</div>
         </div>
         <div className="text-xs font-serif text-slate-600 m-3 ml-[20%] ">

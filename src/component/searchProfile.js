@@ -31,7 +31,7 @@ useEffect(()=>{
          <div>following</div>
          </div>
         <div className="py-2 m-1">
-         <div className=' text-xl font-semibold'>{`${editProfile?.fname} ${editProfile?.lname}`}</div>
+         <div className=' text-xl font-semibold'>{`${editProfile?.lname}`}</div>
          <div>{editProfile?.bio}</div>
          <a>{editProfile?.url}</a>
         </div>

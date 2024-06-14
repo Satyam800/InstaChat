@@ -1,28 +1,30 @@
 import { extraReducers, createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { URL } from "../utils/constant";
+
 export const tweetPost = createAsyncThunk("post", async (data) => {
   console.log(data, "data");
-  const res = await axios.post("http://localhost:3500/api/v1/tweets", data);
+  const res = await axios.post(`${URL}/tweets`, data);
   console.log(res, "res");
   return res?.data?.data;
 });
 
 export const fetchTweet = createAsyncThunk("fetchTweet", async (data) => {
   console.log(data, "fetchTweet");
-  const res = await axios.post("http://localhost:3500/api/v1/getTweet", data);
+  const res = await axios.post(`${URL}/getTweet`, data);
   console.log(res, "tweetfetch");
   return res?.data?.data;
 });
 
 export const profile = createAsyncThunk("profile", async (data) => {
-  const res = await axios.post("http://localhost:3500/api/v1/profile", data);
+  const res = await axios.post(`${URL}/profile`, data);
   console.log(res, "res");
   return res?.data?.data;
 });
 
 export const profileFetch = createAsyncThunk("updateProfile", async (data) => {
   const res = await axios.post(
-    "http://localhost:3500/api/v1/profilefetch",
+    `${URL}/profilefetch`,
     data
   );
   console.log(res, "resfetch");
@@ -31,7 +33,7 @@ export const profileFetch = createAsyncThunk("updateProfile", async (data) => {
 
 export const userSearch = createAsyncThunk("userSearch", async (data) => {
   console.log(data, "datttta");
-  const res = await axios.post("http://localhost:3500/api/v1/userSearch", data);
+  const res = await axios.post( `${URL}/userSearch`, data);
   console.log(res, "resfetch");
   return res?.data?.data;
 });
@@ -40,7 +42,7 @@ export const userSearchProfile = createAsyncThunk(
   "userSearchProfile",
   async (data) => {
     const res = await axios.post(
-      "http://localhost:3500/api/v1/profilefetch",
+       `${URL}/profilefetch`,
       data
     );
     console.log(res, "resfetch mmmm mmmm mmmm");
@@ -49,13 +51,13 @@ export const userSearchProfile = createAsyncThunk(
 );
 
 export const Like = createAsyncThunk("like", async (data) => {
-  const res = await axios.post("http://localhost:3500/api/v1/like", data);
+  const res = await axios.post(`${URL}/like`, data);
   console.log(res, "resfetch");
   return res?.data?.data;
 });
 
 export const fetchLike = createAsyncThunk("likes", async (data) => {
-  const res = await axios.post("http://localhost:3500/api/v1/InstaLike", data);
+  const res = await axios.post(`${URL}/InstaLike`, data);
   console.log(res, "resfetch");
   return res?.data?.data;
 });
@@ -63,7 +65,7 @@ export const fetchLike = createAsyncThunk("likes", async (data) => {
 export const postComment = createAsyncThunk("comment", async (data) => {
   console.log(data);
   const res = await axios.post(
-    "http://localhost:3500/api/v1/InstaComment",
+    `${URL}/InstaComment`,
     data
   );
   console.log(res, "coommfetch");
@@ -73,7 +75,7 @@ export const postComment = createAsyncThunk("comment", async (data) => {
 export const postBookmark = createAsyncThunk("bookmark", async (data) => {
   console.log(data);
   const res = await axios.post(
-    "http://localhost:3500/api/v1/bookmark",
+    `${URL}/bookmark`,
     data
   );
   console.log(res, "coommfetch");
@@ -83,7 +85,7 @@ export const postBookmark = createAsyncThunk("bookmark", async (data) => {
 export const AllComment = createAsyncThunk("comments", async (data) => {
   console.log(data);
   const res = await axios.post(
-    "http://localhost:3500/api/v1/InstaCommentAll",
+    `${URL}/InstaCommentAll`,
     data
   );
   console.log(res, "coommfetch");
@@ -92,7 +94,7 @@ export const AllComment = createAsyncThunk("comments", async (data) => {
 
 export const following=createAsyncThunk("follwoing",async(data)=>{
   const res = await axios.post(
-    "http://localhost:3500/api/v1/following",
+    `${URL}/following`,
     data
   );
   console.log(res, "opopopop");
@@ -101,7 +103,7 @@ export const following=createAsyncThunk("follwoing",async(data)=>{
 
 export const follow=createAsyncThunk("follow",async(data)=>{
   const res = await axios.post(
-    "http://localhost:3500/api/v1/follow",
+    `${URL}/follow`,
     data
   );
   console.log(res, "ioioii");
@@ -110,7 +112,7 @@ export const follow=createAsyncThunk("follow",async(data)=>{
 
 export const followingProfile=createAsyncThunk("followingProfile",async(data)=>{
   const res = await axios.post(
-    "http://localhost:3500/api/v1/followingProfile",
+    `${URL}/followingProfile`,
     data
   );
   console.log(res, "ioioii");
@@ -119,7 +121,7 @@ export const followingProfile=createAsyncThunk("followingProfile",async(data)=>{
 
 export const followingFeed=createAsyncThunk("feed",async(data)=>{
   const res = await axios.post(
-    "http://localhost:3500/api/v1/followingFeed",
+    `${URL}/followingFeed`,
     data
   );
   console.log(res, "ioioii");
@@ -128,7 +130,7 @@ export const followingFeed=createAsyncThunk("feed",async(data)=>{
 
 export const mostLiked=createAsyncThunk("mostLiked",async(data)=>{
   const res = await axios.post(
-    "http://localhost:3500/api/v1/mostLiked",
+    `${URL}/mostLiked`,
     data
   );
   console.log(res, "ioioii");
@@ -138,7 +140,7 @@ export const mostLiked=createAsyncThunk("mostLiked",async(data)=>{
 export const hastagTweet=createAsyncThunk('hastag',async(data)=>{
   console.log(data,"hashtag");
   const res = await axios.post(
-    "http://localhost:3500/api/v1/hashtag",
+    `${URL}/hashtag`,
     data
   );
   console.log(res, "hashtag");
@@ -147,7 +149,7 @@ export const hastagTweet=createAsyncThunk('hastag',async(data)=>{
 export const hastagResult=createAsyncThunk('hastagResult',async(data)=>{
   console.log(data,"hashtag");
   const res = await axios.post(
-    "http://localhost:3500/api/v1/hashtagResult",
+    `${URL}/hashtagResult`,
     data
   );
   console.log(res, "hashtag");
