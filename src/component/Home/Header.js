@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
 import {name,email} from "../../utils/constant"
+import { useEffect,useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { IoIosLogOut } from "react-icons/io";
 import { GoSignIn } from "react-icons/go";
@@ -111,7 +111,7 @@ className='z-100 ml-[20%] mt-1 px-6 py-2 bg-white border shadow-sm border-slate-
     <FaCirclePlus size={42} className='bg-red-500 rounded-full' onClick={handlePostBox}/>
       <Link to='/user'>{editProfile? <img src={editProfile?.image[0]}  className='h-12 w-12 rounded-full  border-dotted border-2 border-indigo-600'/>:<FaCircleUser size={38} className=' '/>}</Link>
      
-   {token&&logout?<div className='flex cursor-pointer' onClick={handleClick}>
+   {token&&!logout?<div className='flex cursor-pointer' onClick={handleClick}>
     <IoIosLogOut size={22} className=' m-1'/>
    <div className=' h-[9%]  '>Logout</div>
    </div>:<div className='flex cursor-pointer' >

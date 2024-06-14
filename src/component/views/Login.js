@@ -51,6 +51,7 @@ const Login = () => {
 
  
   useEffect(() => {
+    console.log(signInMessage,"signInMessage");
     Setloader(false)
     console.log(signInMessage,"loafder");
     if (signInMessage?.success == true) {
@@ -100,10 +101,7 @@ const Login = () => {
     }
   };
 
-  const handlePassword = () => {
-    console.log("password");
-    SetReset(true);
-  };
+ 
 
   return (
     <div className=" absolute sm:top-[19%] sm:left-[25%] top-[20%] left-[6%] rounded-3xl shadow-2xl sm:w-[50%] sm:h-[50%] w-[90%] h-[60%] bg-slate-100 sm:flex ">
@@ -161,7 +159,7 @@ const Login = () => {
           onClick={handleLogin}
         >
           {" "}
-          {loader ? (
+          {loader?(
             <div>
               <SpinnerCircular size={30} color="white" speed={70} />
             </div>
@@ -180,7 +178,7 @@ const Login = () => {
         <ToastContainer />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login
