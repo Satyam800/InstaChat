@@ -205,7 +205,7 @@ const postSlice = createSlice({
         state.searchProfile = action.payload;
       })
       .addCase(userSearchProfile.fulfilled, (state, action) => {
-        console.log(action.payload,"hhkvhjvgjjvjccccccccccccccccccccccccccc");
+        console.log(action.payload,"hhkv");
         state.specificProfile = action.payload;
       })
       .addCase(fetchTweet.fulfilled, (state, action) => {
@@ -217,7 +217,7 @@ const postSlice = createSlice({
         state.like = action.payload;
       })
       .addCase(fetchLike.fulfilled, (state, action) => {
-        console.log(action.payload, "likc");
+        console.log(action.payload, "like");
         state.like = action.payload;
       })
       .addCase(postComment.fulfilled, (state, action) => {
