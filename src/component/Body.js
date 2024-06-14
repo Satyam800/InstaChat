@@ -196,7 +196,7 @@ useEffect(() => {
   {hashtagSearch? 
   <div className='relative ' >
     <input onChange={handlehastagSearch} placeholder='search hashtag...' className=' px-3 ml-9 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1'/>
-      {tagSugg?<div className='absolute flex flex-col mt-3 ml-5  p-2  h-auto w-full outline-yellow-300 bg-yellow-100 opacity-75  border-1 border-yellow-200 rounded-lg'>
+      {tagSugg?<div className={`absolute flex flex-col mt-3 ml-5  p-2  h-auto w-full ${tagSugg?"outline-yellow-300":"bg-none"}  ${tagSugg?"bg-yellow-100":"bg-none"} opacity-75  border-1 border-yellow-200 rounded-lg`}>
       {
         tagSugg?.map((i)=>{
           return <div className='py-2 text-xl font-serif ' onClick={()=>handleHastag(i)}>

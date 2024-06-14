@@ -85,7 +85,7 @@ const User = () => {
   return (
     <div>
       {isEdit ? (
-        <div className="w-screen h-screen bg-black opacity-70">
+        <div className="w-screen h-screen bg-black opacity-80">
           <div className=" top-[14%] sm:left-[30%] left-0">
             <RxCross1
               size={32}

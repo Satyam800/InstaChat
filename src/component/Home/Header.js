@@ -77,7 +77,7 @@ console.log(users,"userSeracxh")
   {/* <div className='flex rounded-full h-10 bg-white text-slate-900 focus:bg-amber-600 '></div> */}
   <CiSearch size={22} className='sm:m-2 mt-2 h-8 w-8 border-red-500 border-2 bg-white rounded-full' onClick={()=>setisSearch(true)}/>
 
- {isSearch? <div className='z-200 fixed top-0 left-0 h-screen w-screen bg-black opacity-50'>
+ {isSearch? <div className='z-200 fixed top-0 left-0 h-screen w-screen bg-black opacity-80'>
     <RxCross1 size={32} className='absolute left-[80%] top-5 bg-slate-50 rounded-full cursor-pointer' onClick={()=>setisSearch(false)}/>
     <div className='absolute  sm:left-[32%] left-[5%] top-[9%] sm:w-[30%] w-[80%] h-[45%] bg-slate-800 rounded-md'>
       <IoSearchOutline size={22} className='absolute left-[20%] top-3'/>

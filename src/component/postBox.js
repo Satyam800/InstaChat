@@ -52,7 +52,7 @@ const PostBox = () => {
   };
 
   return (
-    <div className="h-full w-full bg-black opacity-40 z-100 overflow-y-scroll  no-scrollbar ">
+    <div className="h-full w-full bg-black opacity-80 z-100 overflow-y-scroll  no-scrollbar ">
       <div
         className="flex flex-col absolute top-[20%] left-[23%] sm:left-[31%]  h-[60%]  sm:w-[40%] w-[70%] bg-zinc-200 opacity-100 overflow-y-scroll"
         ref={postBoxRef}
